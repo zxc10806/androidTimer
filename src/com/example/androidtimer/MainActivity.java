@@ -1,21 +1,21 @@
 package com.example.androidtimer;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.app.Activity;
+import android.app.ActionBar;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.View.*;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.os.Build;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 	Handler tasker = new Handler();
 	public class TT implements Runnable
 	{
@@ -65,6 +65,7 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 		
 		T = (TextView)findViewById(R.id.textView1);
 		Count = (Button)findViewById(R.id.button1);
@@ -72,7 +73,7 @@ public class MainActivity extends ActionBarActivity {
 		{
 
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Timer test = new Timer(30);
 				test.start();
@@ -98,6 +99,7 @@ public class MainActivity extends ActionBarActivity {
 		if (id == R.id.action_settings) {
 			return true;
 		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -117,6 +119,5 @@ public class MainActivity extends ActionBarActivity {
 			return rootView;
 		}
 	}
-	
 
 }
