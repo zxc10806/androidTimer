@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.*;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.os.Build;
 
@@ -29,6 +30,25 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			TextView	t1 = (TextView)findViewById(R.id.textView1);
 			t1.setText(String.valueOf(num));
+			
+			
+		}
+		
+	}
+	public class T1 implements Runnable
+	{
+		public int num;
+		public T1()
+		{
+			num = 0;
+		}
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			TextView	t1 = (TextView)findViewById(R.id.textView1);
+			myProgressBar.incrementProgressBy(-1);
+			
+			
 		}
 		
 	}
@@ -45,6 +65,7 @@ public class MainActivity extends Activity {
 		public void run()
 		{
 			int tk = time;
+			myProgressBar.setProgress(100);
 			while(tk>=0)
 			{
 				try {
@@ -59,8 +80,38 @@ public class MainActivity extends Activity {
 			
 		}
 	}
+	public class Timer1 extends Timer
+	{
+		public Timer1(int tt){
+			time = tt;
+		}
+		public Timer1()
+		{
+			time = 0;
+		}
+		public void run()
+		{
+			int tk = time;
+			myProgressBar.setProgress(100);
+			int go = 100/tk;
+			int num =100;
+			while(num>=0)
+			{
+				try {
+				tasker.post(new T1());
+				num--;
+				sleep(300);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			
+		}
+	}
 	TextView T;
 	Button Count;
+	ProgressBar myProgressBar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,6 +120,10 @@ public class MainActivity extends Activity {
 		
 		T = (TextView)findViewById(R.id.textView1);
 		Count = (Button)findViewById(R.id.button1);
+		myProgressBar = (ProgressBar) findViewById(R.id.progressBar1);
+		myProgressBar.setVisibility(View.VISIBLE);
+		
+		
 		Count.setOnClickListener(new OnClickListener()
 		{
 
@@ -76,7 +131,9 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Timer test = new Timer(30);
+				Timer1 test1 = new Timer1(30);
 				test.start();
+				test1.start();
 			}
 			
 		});
